@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: thrift-shopper
+    runtime: node
+    plan: starter
+    buildCommand: node --check server/server.mjs
+    startCommand: node server/server.mjs
+    healthCheckPath: /api/status
+    disk:
+      name: thrift-shopper-data
+      mountPath: /var/data
+      sizeGB: 1
+    envVars:
+      - key: NODE_VERSION
+        value: 24.21.0
+      - key: NODE_ENV
+        value: production
+      - key: HOST
+        value: 0.0.0.0
+      - key: COOKIE_SECURE
+        value: "true"
+      - key: DATABASE_PATH
+        value: /var/data/thrift-shopper.sqlite
